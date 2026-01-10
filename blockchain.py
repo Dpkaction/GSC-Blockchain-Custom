@@ -211,12 +211,12 @@ class GSCBlockchain:
         print("Creating GSC Coin Genesis Block...")
         print(f"Total Supply: {self.max_supply:,.0f} GSC (21.75 Trillion)")
         
-        # Genesis block with foundation allocation (not for user wallets)
+        # Genesis block with coinbase transaction for user wallet
         genesis_transactions = [
             Transaction(
-                sender="Genesis",
-                receiver="GSC_FOUNDATION_RESERVE",  # Foundation reserve, not user accessible
-                amount=self.max_supply,  # Exactly 21.75 trillion supply
+                sender="COINBASE",
+                receiver="GSC_GENESIS",  # User wallet address
+                amount=50.0,  # Initial mining reward
                 fee=0,
                 timestamp=1704067200  # Fixed genesis timestamp (Jan 1, 2024)
             )
@@ -231,18 +231,17 @@ class GSCBlockchain:
         )
         
         # Mine genesis block
-        genesis_block.mine_block(1, "GSC_FOUNDATION")
+        genesis_block.mine_block(1, "GSC_GENESIS")
         self.chain.append(genesis_block)
         
         # Update balances
         self.update_balances()
         
-        self.current_supply = 21750000000000  # Set current supply to max
         print(f"GSC Coin Genesis Block Created!")
         print(f"Genesis Hash: {genesis_block.hash}")
-        print(f"Total Supply: {self.current_supply:,.0f} GSC")
-        print(f"Foundation Reserve: GSC_FOUNDATION_RESERVE")
-        print(f"User wallets start with 0 GSC - must mine or receive coins")
+        print(f"Current Supply: {self.current_supply:,.0f} GSC")
+        print(f"Your wallet (GSC_GENESIS): {self.get_balance('GSC_GENESIS')} GSC")
+        print(f"Mining Reward: {self.get_current_reward()} GSC per block")
         
         return genesis_block
     
@@ -368,8 +367,9 @@ class GSCBlockchain:
         return False
     
     def update_balances(self):
-        """Update all account balances"""
+        """Update all account balances and current supply"""
         self.balances.clear()
+        total_supply = 0.0
         
         for block in self.chain:
             for tx in block.transactions:
@@ -384,11 +384,18 @@ class GSCBlockchain:
                     self.balances[tx.receiver] = 0.0
                 self.balances[tx.receiver] += tx.amount
                 
+                # Track new coins created (coinbase transactions)
+                if tx.sender == "COINBASE":
+                    total_supply += tx.amount
+                
                 # Add fee to miner (if not coinbase transaction)
                 if tx.sender != "COINBASE" and block.miner:
                     if block.miner not in self.balances:
                         self.balances[block.miner] = 0.0
                     self.balances[block.miner] += tx.fee
+        
+        # Update current supply based on actual mined coins
+        self.current_supply = total_supply
     
     def get_balance(self, address: str) -> float:
         """Get balance for an address"""
