@@ -1,0 +1,22 @@
+{
+  "name": "deepak",
+  "created": "2026-01-15T11:33:03.213295",
+  "version": "2.0",
+  "master_address": "GSC1221fe3e6139bbe0b76f0230d9cd5bbc1",
+  "master_private_key": "888da94bd38c14d1a5bc40e45bec7a2a914cb24c6c8b2fe1c914032d6703ebda",
+  "master_public_key": "7b0ff36e3287d74a27f905acb42bf7bdc0eef5dcb1dfd1aed52861632c1d034d",
+  "balance": 0.0,
+  "addresses": [
+    {
+      "address": "GSC1221fe3e6139bbe0b76f0230d9cd5bbc1",
+      "private_key": "888da94bd38c14d1a5bc40e45bec7a2a914cb24c6c8b2fe1c914032d6703ebda",
+      "public_key": "7b0ff36e3287d74a27f905acb42bf7bdc0eef5dcb1dfd1aed52861632c1d034d",
+      "label": "Primary Address",
+      "balance": 0.0,
+      "created": "2026-01-15T11:33:03.213305"
+    }
+  ],
+  "sending_addresses": [],
+  "encrypted": false,
+  "market_ready": true
+}

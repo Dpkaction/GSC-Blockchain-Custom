@@ -1,0 +1,22 @@
+{
+  "name": "MyWallet",
+  "created": "2026-01-13T15:14:50.113811",
+  "version": "2.0",
+  "master_address": "GSC1705641e65321ef23ac5fb3d470f39627",
+  "master_private_key": "95ddbdb28801b29fb9c90c81d63bdb4eefdc99cc566930bce6abb9ff6b8b1e08",
+  "master_public_key": "2f3803bc5ae555c14ac6f049ba0b4f5732b9fcc8f167a387a87151b76dd9c15f",
+  "balance": 0.0,
+  "addresses": [
+    {
+      "address": "GSC1705641e65321ef23ac5fb3d470f39627",
+      "private_key": "95ddbdb28801b29fb9c90c81d63bdb4eefdc99cc566930bce6abb9ff6b8b1e08",
+      "public_key": "2f3803bc5ae555c14ac6f049ba0b4f5732b9fcc8f167a387a87151b76dd9c15f",
+      "label": "Primary Address",
+      "balance": 0.0,
+      "created": "2026-01-13T15:14:50.113834"
+    }
+  ],
+  "sending_addresses": [],
+  "encrypted": false,
+  "market_ready": true
+}
