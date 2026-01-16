@@ -1,0 +1,42 @@
+{
+  "chain": [
+    {
+      "index": 0,
+      "timestamp": 1704067200,
+      "transactions": [
+        {
+          "sender": "COINBASE",
+          "receiver": "GENESIS",
+          "amount": 0.0,
+          "fee": 0.0,
+          "timestamp": 1768302404.410721,
+          "signature": "",
+          "tx_id": "92a8811e64026cf0bbd30c1dbc514dc4886bb0ca1b6ca53a36f18d3db5c6f09b"
+        },
+        {
+          "sender": "GENESIS",
+          "receiver": "GSC1705641e65321ef23ac5fb3d470f39627",
+          "amount": 255.0,
+          "fee": 0.0,
+          "timestamp": 1704067200,
+          "signature": "",
+          "tx_id": "bdbfb0691195adc186bb5268ce79f1eb61894c0a74aef63421a12b1d65df7d83"
+        }
+      ],
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": 0,
+      "hash": "012463231ac6d959ee3814e7dc745c65e2155a95a2625c5bffe0f72a04abc570",
+      "merkle_root": "6ea19bce5b0fe13a7206cfb5914f160d0c5153984ee167d51b37b870b3943e20",
+      "difficulty": 1,
+      "miner": "GENESIS",
+      "reward": 0.0
+    }
+  ],
+  "mempool": [],
+  "balances": {
+    "GENESIS": 0.0,
+    "GSC1705641e65321ef23ac5fb3d470f39627": 255.0
+  },
+  "difficulty": 4,
+  "mining_reward": 50.0
+}

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSC Coin - Blockchain Wallet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #0f3460 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #00d4ff 0%, #0f3460 100%);
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #0f3460 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .wallet-list {
+            margin-top: 20px;
+        }
+
+        .wallet-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .wallet-address {
+            font-family: monospace;
+            font-size: 14px;
+            color: #00d4ff;
+            word-break: break-all;
+        }
+
+        .balance {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin-top: 5px;
+        }
+
+        .block-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .block-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .block-hash {
+            font-family: monospace;
+            font-size: 12px;
+            color: #00d4ff;
+            word-break: break-all;
+        }
+
+        .success {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .error {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid #ff4757;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #00d4ff;
+        }
+
+        .genesis-info {
+            background: linear-gradient(135deg, #00ff88 0%, #00aa55 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mining-status {
+            background: rgba(255, 170, 0, 0.2);
+            border: 1px solid #ffaa00;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>GSC COIN</h1>
+            <p>Professional Cryptocurrency Blockchain</p>
+            <div id="connection-status" class="loading">Connecting to blockchain...</div>
+        </div>
+
+        <div class="genesis-info">
+            <h3>🎯 Genesis Block Information</h3>
+            <p><strong>Genesis Address:</strong> <span class="wallet-address">GSC1705641e65321ef23ac5fb3d470f39627</span></p>
+            <p><strong>Genesis Balance:</strong> <span class="balance">255 GSC</span></p>
+            <p><strong>Total Supply:</strong> 21.75 Trillion GSC</p>
+        </div>
+
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-blocks">-</div>
+                <div>Total Blocks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="mempool-size">-</div>
+                <div>Pending Transactions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="current-supply">-</div>
+                <div>Current Supply</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="mining-status">-</div>
+                <div>Mining Status</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('wallet')">💼 Wallet</div>
+            <div class="tab" onclick="showTab('send')">📤 Send</div>
+            <div class="tab" onclick="showTab('mining')">⛏️ Mining</div>
+            <div class="tab" onclick="showTab('explorer')">🔍 Explorer</div>
+        </div>
+
+        <div id="wallet-tab" class="tab-content active">
+            <h2>Wallet Management</h2>
+            
+            <div style="margin-bottom: 30px;">
+                <button class="btn" onclick="createWallet()">Create New Wallet</button>
+                <button class="btn btn-secondary" onclick="importWallet()">Import Wallet</button>
+                <button class="btn btn-secondary" onclick="loadWallets()">Refresh Wallets</button>
+            </div>
+
+            <div id="wallet-form" style="display: none;">
+                <div class="form-group">
+                    <label for="wallet-name">Wallet Name:</label>
+                    <input type="text" id="wallet-name" placeholder="Enter wallet name">
+                </div>
+                <div class="form-group" id="mnemonic-group" style="display: none;">
+                    <label for="mnemonic-phrase">Mnemonic Phrase (12 words):</label>
+                    <textarea id="mnemonic-phrase" rows="3" placeholder="Enter your 12-word mnemonic phrase"></textarea>
+                </div>
+                <button class="btn" onclick="submitWallet()">Create Wallet</button>
+                <button class="btn btn-secondary" onclick="cancelWallet()">Cancel</button>
+            </div>
+
+            <div id="wallets-list" class="wallet-list"></div>
+        </div>
+
+        <div id="send-tab" class="tab-content">
+            <h2>Send GSC Coins</h2>
+            
+            <div class="form-group">
+                <label for="sender-address">From Address:</label>
+                <input type="text" id="sender-address" placeholder="Select or enter sender address">
+            </div>
+            
+            <div class="form-group">
+                <label for="recipient-address">To Address:</label>
+                <input type="text" id="recipient-address" placeholder="Enter recipient GSC address">
+            </div>
+            
+            <div class="form-group">
+                <label for="send-amount">Amount (GSC):</label>
+                <input type="number" id="send-amount" placeholder="0.00" step="0.01" min="0.01">
+            </div>
+            
+            <div class="form-group">
+                <label for="transaction-fee">Fee (GSC):</label>
+                <input type="number" id="transaction-fee" value="0.1" step="0.01" min="0.1">
+            </div>
+            
+            <button class="btn" onclick="sendTransaction()">Send Transaction</button>
+        </div>
+
+        <div id="mining-tab" class="tab-content">
+            <h2>Smart Mining</h2>
+            
+            <div id="mining-info" class="mining-status">
+                <p><strong>Smart Mining:</strong> Only mines when transactions are available in mempool</p>
+                <p><strong>Block Reward:</strong> 50 GSC + transaction fees</p>
+                <p><strong>Difficulty:</strong> Fixed at 5 (4 leading zeros)</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="miner-address">Miner Address:</label>
+                <input type="text" id="miner-address" placeholder="Enter address to receive mining rewards">
+            </div>
+            
+            <button class="btn" onclick="startMining()">Start Mining</button>
+            <button class="btn btn-secondary" onclick="stopMining()">Stop Mining</button>
+            
+            <div id="mining-stats" style="margin-top: 20px;"></div>
+        </div>
+
+        <div id="explorer-tab" class="tab-content">
+            <h2>Blockchain Explorer</h2>
+            
+            <button class="btn btn-secondary" onclick="loadBlocks()">Refresh Blocks</button>
+            
+            <div id="blocks-list" class="block-list"></div>
+        </div>
+
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        let wallets = [];
+        let ws = null;
+
+        // Initialize WebSocket connection
+        function initWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}`;
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = function() {
+                document.getElementById('connection-status').innerHTML = '🟢 Connected to GSC Network';
+                document.getElementById('connection-status').className = 'success';
+                loadBlockchainInfo();
+            };
+            
+            ws.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                handleWebSocketMessage(message);
+            };
+            
+            ws.onclose = function() {
+                document.getElementById('connection-status').innerHTML = '🔴 Disconnected from GSC Network';
+                document.getElementById('connection-status').className = 'error';
+                setTimeout(initWebSocket, 5000);
+            };
+        }
+
+        function handleWebSocketMessage(message) {
+            switch(message.type) {
+                case 'new_block':
+                    showMessage('🎉 New block mined! Block #' + message.data.block.index, 'success');
+                    loadBlockchainInfo();
+                    break;
+                case 'new_transaction':
+                    showMessage('📝 New transaction added to mempool', 'success');
+                    loadBlockchainInfo();
+                    break;
+                case 'mining_update':
+                    updateMiningStats(message.data);
+                    break;
+            }
+        }
+
+        // API functions
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+            
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(`/api${endpoint}`, options);
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                showMessage('API Error: ' + error.message, 'error');
+                return null;
+            }
+        }
+
+        // Load blockchain information
+        async function loadBlockchainInfo() {
+            const info = await apiCall('/blockchain/info');
+            if (info && info.success) {
+                const data = info.data;
+                document.getElementById('total-blocks').textContent = data.totalBlocks;
+                document.getElementById('mempool-size').textContent = data.mempoolSize;
+                document.getElementById('current-supply').textContent = data.currentSupply + ' GSC';
+                
+                const miningStatus = await apiCall('/mining/status');
+                if (miningStatus && miningStatus.success) {
+                    document.getElementById('mining-status').textContent = 
+                        miningStatus.data.isMining ? 'Active' : 'Idle';
+                }
+            }
+        }
+
+        // Wallet functions
+        async function createWallet() {
+            document.getElementById('wallet-form').style.display = 'block';
+            document.getElementById('mnemonic-group').style.display = 'none';
+            document.getElementById('wallet-name').value = '';
+        }
+
+        async function importWallet() {
+            document.getElementById('wallet-form').style.display = 'block';
+            document.getElementById('mnemonic-group').style.display = 'block';
+            document.getElementById('wallet-name').value = '';
+            document.getElementById('mnemonic-phrase').value = '';
+        }
+
+        function cancelWallet() {
+            document.getElementById('wallet-form').style.display = 'none';
+        }
+
+        async function submitWallet() {
+            const name = document.getElementById('wallet-name').value;
+            const mnemonic = document.getElementById('mnemonic-phrase').value;
+            
+            let result;
+            if (mnemonic) {
+                result = await apiCall('/wallet/import', 'POST', { name, mnemonic });
+            } else {
+                result = await apiCall('/wallet/create', 'POST', { name });
+            }
+            
+            if (result && result.success) {
+                showMessage('Wallet created successfully!', 'success');
+                cancelWallet();
+                loadWallets();
+            } else {
+                showMessage('Failed to create wallet: ' + (result?.error || 'Unknown error'), 'error');
+            }
+        }
+
+        async function loadWallets() {
+            const result = await apiCall('/wallet/list');
+            if (result && result.success) {
+                wallets = result.data;
+                displayWallets();
+            }
+        }
+
+        function displayWallets() {
+            const container = document.getElementById('wallets-list');
+            container.innerHTML = '';
+            
+            wallets.forEach(wallet => {
+                const walletDiv = document.createElement('div');
+                walletDiv.className = 'wallet-item';
+                walletDiv.innerHTML = `
+                    <h4>${wallet.name}</h4>
+                    <div class="wallet-address">${wallet.address}</div>
+                    <div class="balance">${wallet.balance} GSC</div>
+                    <button class="btn btn-secondary" onclick="selectWallet('${wallet.address}')">Select for Sending</button>
+                `;
+                container.appendChild(walletDiv);
+            });
+        }
+
+        function selectWallet(address) {
+            document.getElementById('sender-address').value = address;
+            showTab('send');
+        }
+
+        // Transaction functions
+        async function sendTransaction() {
+            const sender = document.getElementById('sender-address').value;
+            const receiver = document.getElementById('recipient-address').value;
+            const amount = document.getElementById('send-amount').value;
+            const fee = document.getElementById('transaction-fee').value;
+            
+            if (!sender || !receiver || !amount) {
+                showMessage('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            const result = await apiCall('/blockchain/transactions', 'POST', {
+                sender, receiver, amount: parseFloat(amount), fee: parseFloat(fee)
+            });
+            
+            if (result && result.success) {
+                showMessage('Transaction submitted successfully!', 'success');
+                document.getElementById('recipient-address').value = '';
+                document.getElementById('send-amount').value = '';
+                loadWallets();
+                loadBlockchainInfo();
+            } else {
+                showMessage('Transaction failed: ' + (result?.error || 'Unknown error'), 'error');
+            }
+        }
+
+        // Mining functions
+        async function startMining() {
+            const minerAddress = document.getElementById('miner-address').value;
+            if (!minerAddress) {
+                showMessage('Please enter a miner address', 'error');
+                return;
+            }
+            
+            const result = await apiCall('/mining/start', 'POST', { minerAddress });
+            if (result && result.success) {
+                showMessage('Mining started!', 'success');
+            } else {
+                showMessage('Failed to start mining: ' + (result?.error || 'Unknown error'), 'error');
+            }
+        }
+
+        async function stopMining() {
+            const result = await apiCall('/mining/stop', 'POST');
+            if (result && result.success) {
+                showMessage('Mining stopped!', 'success');
+            }
+        }
+
+        function updateMiningStats(stats) {
+            const container = document.getElementById('mining-stats');
+            container.innerHTML = `
+                <div class="mining-status">
+                    <h4>Mining Statistics</h4>
+                    <p><strong>Nonce:</strong> ${stats.nonce || 0}</p>
+                    <p><strong>Hash Rate:</strong> ${(stats.hashRate || 0).toFixed(2)} H/s</p>
+                    <p><strong>Progress:</strong> ${(stats.progress || 0).toFixed(1)}%</p>
+                </div>
+            `;
+        }
+
+        // Explorer functions
+        async function loadBlocks() {
+            const result = await apiCall('/blockchain/blocks');
+            if (result && result.success) {
+                displayBlocks(result.data.blocks);
+            }
+        }
+
+        function displayBlocks(blocks) {
+            const container = document.getElementById('blocks-list');
+            container.innerHTML = '';
+            
+            blocks.forEach(block => {
+                const blockDiv = document.createElement('div');
+                blockDiv.className = 'block-item';
+                blockDiv.innerHTML = `
+                    <h4>Block #${block.index}</h4>
+                    <p><strong>Hash:</strong> <span class="block-hash">${block.hash}</span></p>
+                    <p><strong>Transactions:</strong> ${block.transactions.length}</p>
+                    <p><strong>Timestamp:</strong> ${new Date(block.timestamp).toLocaleString()}</p>
+                    <p><strong>Miner:</strong> ${block.miner || 'Genesis'}</p>
+                `;
+                container.appendChild(blockDiv);
+            });
+        }
+
+        // UI functions
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showMessage(message, type) {
+            const container = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            container.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        // Initialize the application
+        window.onload = function() {
+            initWebSocket();
+            loadWallets();
+            loadBlocks();
+            
+            // Set genesis address as default miner
+            document.getElementById('miner-address').value = 'GSC1705641e65321ef23ac5fb3d470f39627';
+            
+            // Refresh data every 10 seconds
+            setInterval(() => {
+                loadBlockchainInfo();
+                loadWallets();
+            }, 10000);
+        };
+    </script>
+</body>
+</html>

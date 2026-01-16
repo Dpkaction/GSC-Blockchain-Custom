@@ -1,0 +1,14 @@
+# Ignore node_modules to avoid large uploads
+**/node_modules/
+.venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+
+# Explicitly ignore large build artifacts that cause GitHub push failures
+*.pack
+
+# Explicitly allow dist and build folders as per user request
+!dist/
+!build/

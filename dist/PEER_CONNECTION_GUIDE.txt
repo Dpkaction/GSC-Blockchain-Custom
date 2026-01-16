@@ -1,0 +1,148 @@
+GSC COIN PEER CONNECTION TROUBLESHOOTING GUIDE
+==============================================
+
+PROBLEM IDENTIFIED:
+Two devices running gscvags.exe cannot connect to each other and don't show connected peers.
+
+ROOT CAUSES FIXED:
+1. ✅ Seed nodes were localhost IPs (won't work across devices)
+2. ✅ No IP address display in GUI for manual connection
+3. ✅ Improved peer discovery system
+4. ✅ Enhanced network address detection
+
+SOLUTION - USE gscvags_fixed.exe:
+================================
+
+The new gscvags_fixed.exe includes:
+✅ Better IP address detection
+✅ Network address display in GUI
+✅ Improved peer connectivity
+✅ Manual connection capabilities
+✅ Real-time network status
+
+HOW TO CONNECT TWO DEVICES:
+===========================
+
+STEP 1: Get Your Network Information
+-----------------------------------
+1. Run gscvags_fixed.exe on Device A
+2. Go to "Network" tab
+3. Look for "Connection Information" section
+4. Note your IP Address (e.g., 192.168.1.100)
+5. Note your P2P Address (e.g., 192.168.1.100:8333)
+
+STEP 2: Share Your P2P Address
+-----------------------------
+1. Copy your P2P Address using the "Copy" button
+2. Share it with the other device user
+   - Via text message, email, or verbally
+   - Example: "My P2P Address is 192.168.1.100:8333"
+
+STEP 3: Connect Manually
+-----------------------
+On Device B:
+1. Run gscvags_fixed.exe
+2. Go to "Network" tab
+3. Find "Manual Connect" section
+4. Enter Device A's IP address: 192.168.1.100
+5. Enter Port: 8333
+6. Click "Connect to Peer"
+
+STEP 4: Verify Connection
+------------------------
+Both devices should now show:
+- Connected Peers: 1 (or more)
+- Network Status: 🟢 Connected
+- Peer listed in "Connected Peers" section
+
+TROUBLESHOOTING:
+===============
+
+If connection fails:
+
+1. CHECK NETWORK:
+   - Both devices on same WiFi network?
+   - Same subnet (192.168.1.x or 192.168.0.x)?
+
+2. CHECK FIREWALL:
+   - Windows Firewall may block port 8333
+   - Allow gscvags_fixed.exe through firewall
+   - Or temporarily disable firewall for testing
+
+3. CHECK IP ADDRESSES:
+   - Use correct IP from "Connection Information"
+   - Don't use 127.0.0.1 (localhost only)
+   - Use actual network IP (192.168.x.x)
+
+4. CHECK PORT:
+   - Default P2P port is 8333
+   - Make sure port is not used by other apps
+
+5. RESTART IF NEEDED:
+   - Close and restart gscvags_fixed.exe
+   - Try connecting from both directions
+
+NETWORK REQUIREMENTS:
+====================
+- Same local network (WiFi/Ethernet)
+- Port 8333 available
+- Windows Firewall configured
+- Valid network IP addresses
+
+RPC CONNECTIVITY:
+================
+- RPC Server runs on port 8332
+- RPC Address shown in Connection Information
+- Use for external integrations
+- Example: http://192.168.1.100:8332
+
+TESTING TRANSACTION BROADCASTING:
+================================
+Once connected:
+1. Send a transaction on Device A
+2. Check mempool on Device B
+3. Transaction should appear automatically
+4. Start mining on either device
+5. Mined block broadcasts to both
+
+ADVANCED TROUBLESHOOTING:
+========================
+
+Windows Firewall Fix:
+1. Windows Security → Firewall & network protection
+2. Allow an app through firewall
+3. Add gscvags_fixed.exe to exceptions
+4. Allow for both Private and Public networks
+
+Network Discovery:
+1. If manual connection fails
+2. Try connecting from both directions
+3. Check Windows network discovery settings
+4. Ensure network profile is "Private" not "Public"
+
+Port Testing:
+1. Use telnet to test port connectivity
+2. telnet [IP_ADDRESS] 8333
+3. Should connect if port is open
+
+WHAT'S FIXED IN gscvags_fixed.exe:
+=================================
+✅ Removed non-working seed nodes
+✅ Added network address display in GUI
+✅ Improved IP address detection
+✅ Enhanced peer discovery system
+✅ Better error handling for connections
+✅ Real-time network status updates
+✅ Copy buttons for easy address sharing
+
+SUCCESS INDICATORS:
+==================
+When working correctly, you'll see:
+- 🟢 Connected status in Network tab
+- Peer count > 0
+- Peer IP addresses listed
+- Transactions sync between devices
+- Blocks broadcast automatically
+- Shared mempool across devices
+
+For additional support, check the network logs in the GUI console tab.

@@ -1,0 +1,22 @@
+{
+  "name": "zaq",
+  "created": "2026-01-14T15:55:50.187395",
+  "version": "2.0",
+  "master_address": "GSC11399a029be4b791e7cc472b8c409748a",
+  "master_private_key": "0a4d7d8d0bd1cb9eaeb990c4fbd533dd9915ecd37a78137832b1e98296d1f15b",
+  "master_public_key": "caa2748cf8eab79511bf79b7f7e91e36cba1c88840a7066d58c3a92cdf045f8f",
+  "balance": 0.0,
+  "addresses": [
+    {
+      "address": "GSC11399a029be4b791e7cc472b8c409748a",
+      "private_key": "0a4d7d8d0bd1cb9eaeb990c4fbd533dd9915ecd37a78137832b1e98296d1f15b",
+      "public_key": "caa2748cf8eab79511bf79b7f7e91e36cba1c88840a7066d58c3a92cdf045f8f",
+      "label": "Primary Address",
+      "balance": 0.0,
+      "created": "2026-01-14T15:55:50.187404"
+    }
+  ],
+  "sending_addresses": [],
+  "encrypted": false,
+  "market_ready": true
+}

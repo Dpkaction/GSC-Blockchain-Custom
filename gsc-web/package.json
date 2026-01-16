@@ -1,0 +1,43 @@
+{
+  "name": "gsc-coin-web",
+  "version": "1.0.0",
+  "description": "GSC Coin - Professional Cryptocurrency Blockchain Web Application",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "start": "node server/index.js",
+    "install-all": "npm install && cd client && npm install",
+    "vercel-build": "npm run build"
+  },
+  "keywords": [
+    "blockchain",
+    "cryptocurrency",
+    "gsc-coin",
+    "web3",
+    "mining",
+    "wallet"
+  ],
+  "author": "GSC Coin Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "ws": "^8.14.2",
+    "crypto": "^1.0.1",
+    "node-cron": "^3.0.3",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "rate-limiter-flexible": "^2.4.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "timestamp": 1705234800.0,
+  "block_count": 2,
+  "total_supply": 510.0,
+  "difficulty": 1,
+  "blocks": [
+    {
+      "index": 0,
+      "timestamp": 1705234800.0,
+      "previous_hash": "0",
+      "hash": "012463231ac6d959ee3814e7dc745c65e2155a95a2625c5bffe0f72a04abc570",
+      "merkle_root": "genesis_merkle_root",
+      "nonce": 0,
+      "difficulty": 1,
+      "miner": "genesis",
+      "reward": 255.0,
+      "transactions": [
+        {
+          "tx_id": "genesis_transaction",
+          "sender": "genesis",
+          "receiver": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+          "amount": 255.0,
+          "fee": 0.0,
+          "timestamp": 1705234800.0,
+          "signature": "genesis_signature"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "timestamp": 1705234860.0,
+      "previous_hash": "012463231ac6d959ee3814e7dc745c65e2155a95a2625c5bffe0f72a04abc570",
+      "hash": "00a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234",
+      "merkle_root": "block1_merkle_root",
+      "nonce": 12345,
+      "difficulty": 1,
+      "miner": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      "reward": 255.0,
+      "transactions": [
+        {
+          "tx_id": "tx_001_coinbase",
+          "sender": "coinbase",
+          "receiver": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+          "amount": 255.0,
+          "fee": 0.0,
+          "timestamp": 1705234860.0,
+          "signature": "coinbase_signature"
+        }
+      ]
+    }
+  ]
+}

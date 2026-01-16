@@ -1,0 +1,64 @@
+{
+  "chain": [
+    {
+      "index": 0,
+      "timestamp": 1704067200000,
+      "transactions": [
+        {
+          "sender": "GENESIS",
+          "receiver": "GSC1705641e65321ef23ac5fb3d470f39627",
+          "amount": 255,
+          "fee": 0,
+          "timestamp": 1704067200000,
+          "signature": "",
+          "txId": "02dde424cfc20231ac37e72ccd0553eaa0923dac8abe7eb70af5a292f55fc899"
+        }
+      ],
+      "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": 44,
+      "hash": "0eaa141dcca8c70ae1db1349e0d5183dcb664180e7b4e43ce2a190b09c865719",
+      "merkleRoot": "02dde424cfc20231ac37e72ccd0553eaa0923dac8abe7eb70af5a292f55fc899",
+      "difficulty": 1,
+      "miner": "GENESIS",
+      "reward": 0
+    },
+    {
+      "index": 1,
+      "timestamp": 1768306724763,
+      "transactions": [
+        {
+          "sender": "COINBASE",
+          "receiver": "GSC1705641e65321ef23ac5fb3d470f39627",
+          "amount": 50.1,
+          "fee": 0,
+          "timestamp": 1768306724763,
+          "signature": "",
+          "txId": "4917e23cbe9c543a4d762e7bfa1900e552113b8243f2192548dd08a45323dddf"
+        },
+        {
+          "sender": "GSC1705641e65321ef23ac5fb3d470f39627",
+          "receiver": "GSC720fffe8e0763747af14226b53f69f90",
+          "amount": 5,
+          "fee": 0.1,
+          "timestamp": 1768306711979,
+          "signature": "",
+          "txId": "f698d080b74239b5bb2bae5e5d7a959a0036902efabb3d1b23fdf54eaea6403b"
+        }
+      ],
+      "previousHash": "0eaa141dcca8c70ae1db1349e0d5183dcb664180e7b4e43ce2a190b09c865719",
+      "nonce": 1114641,
+      "hash": "00000ae24ff1e196c271393250f1d3114db493108c08786abf8a18bd095c24ff",
+      "merkleRoot": "c9471e67031db7a1128117e0f31a292edee38b489940af937386118867a33b70",
+      "difficulty": 5,
+      "miner": "GSC1705641e65321ef23ac5fb3d470f39627",
+      "reward": 50
+    }
+  ],
+  "mempool": [],
+  "balances": {
+    "GSC1705641e65321ef23ac5fb3d470f39627": 300.1,
+    "GENESIS": 0,
+    "GSC720fffe8e0763747af14226b53f69f90": 5
+  },
+  "currentSupply": 305
+}
